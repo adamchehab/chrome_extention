@@ -84,6 +84,16 @@ function Popup() {
 					Save
 				</button>
 			</div>
+			<div className="card">
+				<button
+					onClick={() => {
+						setData([]);
+						localStorage.removeItem("myData");
+					}}
+				>
+					Clear storage
+				</button>
+			</div>
 			{data}
 		</>
 	);
