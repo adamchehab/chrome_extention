@@ -4,5 +4,15 @@
   "version": "1.0.1",
   "action": {
     "default_popup": "index.html" 
-  }
+  },
+
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "https://*/",
+    "http://*/"
+  ]
 }

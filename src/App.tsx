@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import "./App.css";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function Popup() {
+	const [click, setClick] = useState(false);
+
+  // Reset the button
+	useEffect(() => {
+		if (click) {
+			const timer = setInterval(() => {
+				setClick(false);
+				console.log("Timer fired!");
+			}, 1000);
+
+			return () => {
+				clearInterval(timer);
+			};
+		}
+	}, [click]);
+
+  // Click button handler
+	const handleClick = () => {
+		// Opean new tab
+		chrome.tabs.create({ url: "https://example.com" });
+		// Get currenttab
+		chrome.tabs.query(
+			{ active: true, currentWindow: true },
+			function (tabs) {
+				if (tabs.length > 0) {
+					const currentTab = tabs[0];
+					console.log(currentTab.title);
+				}
+			}
+		);
+
+		setClick(true);
+	};
+
+	return (
+		<>
+			<div className="card">
+				<button
+					className={`${
+						click ? `opacity-40` : ``
+					} select-none focus:outline-none transition-all duration-300`}
+					disabled={click}
+					onClick={handleClick}
+				>
+					Save
+				</button>
+			</div>
+		</>
+	);
 }
 
-export default App
+export default Popup;
