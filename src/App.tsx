@@ -11,6 +11,21 @@ async function getCurrentTab() {
 
 function Popup() {
 	const [click, setClick] = useState(false);
+	const [data, setData] = useState([]);
+
+	// const addItemToArray = (item) => {
+	// 	let newData = [...data, item];
+	// 	setData(newData);
+	// 	localStorage.setItem("myData", JSON.stringify(newData));
+	// };
+
+	useEffect(() => {
+		// Retrieve data from local storage on component mount
+		const storedData = localStorage.getItem("myData");
+		if (storedData) {
+			setData(JSON.parse(storedData));
+		}
+	}, []);
 
 	// Reset the button
 	useEffect(() => {
@@ -28,14 +43,30 @@ function Popup() {
 
 	// Click button handler
 	const handleClick = () => {
+		// let MyTab = getCurrentTab();
+		// MyTab.then((tab) => {
+		// 	if (tab) {
+		// 		const newElem = {
+		// 			id: data.length,
+		// 			title: tab.title,
+		// 			url: tab.url,
+		// 		};
+		// 		console.log(newElem);
+		// 		addItemToArray(newElem);
+		// 	}
+		// });
 
-		let MyTab = getCurrentTab();
-		MyTab.then((tab) => {
-			if (tab) {
-				const title = tab.title;
-        console.log(title);
-      }
-		});
+		// const newElem = {
+		// 	id: 0,
+		// 	title: "tab.title",
+		// 	url: "tab.url",
+		// };
+		const newData = [...data, "test"];
+		setData(newData);
+		localStorage.setItem("myData", JSON.stringify(newData));
+
+		// console.log(newElem);
+		// addItemToArray(newElem);
 
 		setClick(true);
 	};
@@ -53,6 +84,7 @@ function Popup() {
 					Save
 				</button>
 			</div>
+			{data}
 		</>
 	);
 }
