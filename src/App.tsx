@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 import "./App.css";
 
+import TabsList from "./components/TabsList";
+
 async function getCurrentTab() {
 	let queryOptions = { active: true, lastFocusedWindow: true };
 	let [tab] = await chrome.tabs.query(queryOptions);
@@ -95,17 +97,7 @@ function Popup() {
 					</button>
 				</div>
 			</div>
-			<div>
-				{data.map((item, index) => (
-					<div
-						className="flex border-2 border-[#212020] rounded-lg bg-[#303030] p-1 pl-3 m-1 shadow-md"
-						key={index}
-					>
-						<img className="w-8 h-8" src={item.favIconUrl} />
-						<a href={item.url}>{item.title}</a>
-					</div>
-				))}
-			</div>
+			<TabsList data={data} />
 		</>
 	);
 }
