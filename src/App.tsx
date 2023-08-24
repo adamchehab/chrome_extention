@@ -2,10 +2,17 @@ import { useState, useEffect } from "react";
 
 import "./App.css";
 
+async function getCurrentTab() {
+	let queryOptions = { active: true, lastFocusedWindow: true };
+	let [tab] = await chrome.tabs.query(queryOptions);
+
+	return tab;
+}
+
 function Popup() {
 	const [click, setClick] = useState(false);
 
-  // Reset the button
+	// Reset the button
 	useEffect(() => {
 		if (click) {
 			const timer = setInterval(() => {
@@ -19,20 +26,16 @@ function Popup() {
 		}
 	}, [click]);
 
-  // Click button handler
+	// Click button handler
 	const handleClick = () => {
-		// Opean new tab
-		chrome.tabs.create({ url: "https://example.com" });
-		// Get currenttab
-		chrome.tabs.query(
-			{ active: true, currentWindow: true },
-			function (tabs) {
-				if (tabs.length > 0) {
-					const currentTab = tabs[0];
-					console.log(currentTab.title);
-				}
-			}
-		);
+
+		let MyTab = getCurrentTab();
+		MyTab.then((tab) => {
+			if (tab) {
+				const title = tab.title;
+        console.log(title);
+      }
+		});
 
 		setClick(true);
 	};
