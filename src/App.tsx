@@ -56,12 +56,12 @@ function Popup() {
 		// 	}
 		// });
 
-		// const newElem = {
-		// 	id: 0,
-		// 	title: "tab.title",
-		// 	url: "tab.url",
-		// };
-		const newData = [...data, "test"];
+		const newElem = {
+			id: data.length,
+			title: "test",
+			url: "test",
+		};
+		const newData = [...data, newElem];
 		setData(newData);
 		localStorage.setItem("myData", JSON.stringify(newData));
 
@@ -94,7 +94,15 @@ function Popup() {
 					Clear storage
 				</button>
 			</div>
-			{data}
+			<div>
+				{data.map((item, index) => (
+					<div key={index}>
+						<p>id: {item.id}</p>
+						<p>title: {item.title}</p>
+						<p>url: {item.url}</p>
+					</div>
+				))}
+			</div>
 		</>
 	);
 }
