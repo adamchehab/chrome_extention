@@ -13,14 +13,8 @@ function Popup() {
 	const [click, setClick] = useState(false);
 	const [data, setData] = useState([]);
 
-	// const addItemToArray = (item) => {
-	// 	let newData = [...data, item];
-	// 	setData(newData);
-	// 	localStorage.setItem("myData", JSON.stringify(newData));
-	// };
-
+	// Retrieve data from local storage on component mount
 	useEffect(() => {
-		// Retrieve data from local storage on component mount
 		const storedData = localStorage.getItem("myData");
 		if (storedData) {
 			setData(JSON.parse(storedData));
@@ -73,33 +67,42 @@ function Popup() {
 
 	return (
 		<>
-			<div className="card">
-				<button
-					className={`${
-						click ? `opacity-40` : ``
-					} select-none focus:outline-none transition-all duration-300`}
-					disabled={click}
-					onClick={handleClick}
-				>
-					Save
-				</button>
-			</div>
-			<div className="card">
-				<button
-					onClick={() => {
-						setData([]);
-						localStorage.removeItem("myData");
-					}}
-				>
-					Clear storage
-				</button>
+			<div className="flex">
+				<div className="card">
+					<button
+						className={`${
+							click ? `opacity-40 border-none` : ``
+						} select-none transition-all duration-300`}
+						disabled={click}
+						onClick={handleClick}
+					>
+						Save
+					</button>
+				</div>
+				{/* TODO add 2nd disable button? add it all to a separate class */}
+				<div className="card">
+					<button
+						onClick={() => {
+							setData([]);
+							localStorage.removeItem("myData");
+						}}
+					>
+						Clear storage
+					</button>
+				</div>
 			</div>
 			<div>
 				{data.map((item, index) => (
-					<div key={index}>
-						<p>id: {item.id}</p>
-						<p>title: {item.title}</p>
-						<p>url: {item.url}</p>
+					<div
+						className="flex border-2 border-[#212020] rounded-lg bg-[#303030] p-1 pl-3 m-1 shadow-md"
+						key={index}
+					>
+						{/* <link
+							rel="icon"
+							type="image/png"
+							href={item.url}
+						></link> */}
+						<a href={item.url}>{item.title}</a>
 					</div>
 				))}
 			</div>
