@@ -37,31 +37,35 @@ function Popup() {
 
 	// Click button handler
 	const handleClick = () => {
+		// Tabs
 		// let MyTab = getCurrentTab();
 		// MyTab.then((tab) => {
 		// 	if (tab) {
+		// 		console.log(tab);
+
 		// 		const newElem = {
 		// 			id: data.length,
 		// 			title: tab.title,
 		// 			url: tab.url,
+		// 			favIconUrl: tab.favIconUrl,
 		// 		};
-		// 		console.log(newElem);
-		// 		addItemToArray(newElem);
+		// 		const newData = [...data, newElem];
+		// 		setData(newData);
+		// 		localStorage.setItem("myData", JSON.stringify(newData));
 		// 	}
 		// });
 
+		// For testing
 		const newElem = {
 			id: data.length,
-			title: "test",
-			url: "test",
+			title: "title",
+			url: "url",
+			favIconUrl:
+				"https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
 		};
 		const newData = [...data, newElem];
 		setData(newData);
 		localStorage.setItem("myData", JSON.stringify(newData));
-
-		// console.log(newElem);
-		// addItemToArray(newElem);
-
 		setClick(true);
 	};
 
@@ -97,11 +101,7 @@ function Popup() {
 						className="flex border-2 border-[#212020] rounded-lg bg-[#303030] p-1 pl-3 m-1 shadow-md"
 						key={index}
 					>
-						{/* <link
-							rel="icon"
-							type="image/png"
-							href={item.url}
-						></link> */}
+						<img className="w-8 h-8" src={item.favIconUrl} />
 						<a href={item.url}>{item.title}</a>
 					</div>
 				))}
