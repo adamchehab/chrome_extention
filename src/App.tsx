@@ -60,7 +60,7 @@ function Popup() {
 		// For testing
 		const newElem = {
 			id: data.length,
-			title: "title",
+			title: "000000000000000000000",
 			url: "url",
 			favIconUrl:
 				"https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
