@@ -76,6 +76,7 @@ function Popup() {
 
 
 					// chrome.tabs.remove(tab.id);
+					// TODO - how do i open popup after closing the tab?
 
 					// Open popup of extention on current page
 					// NOTE - thats how can i open new tab like onetab?
