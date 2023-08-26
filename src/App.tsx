@@ -39,35 +39,53 @@ function Popup() {
 
 	// Click button handler
 	const handleClick = () => {
-		// Tabs
-		// let MyTab = getCurrentTab();
-		// MyTab.then((tab) => {
-		// 	if (tab) {
-		// 		console.log(tab);
+		if (window.location.href === "http://localhost:5173/") {
+			// TESTING
+			const newElem = {
+				id: data.length,
+				title: "000000000000000000000",
+				url: "url",
+				favIconUrl:
+					"https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
+				// "https://www.youtube.com/s/desktop/165dcb41/img/favicon.ico",
+			};
+			const newData = [...data, newElem];
+			setData(newData);
+			localStorage.setItem("myData", JSON.stringify(newData));
+		} else {
+			// EXTENTION
+			const MyTab = getCurrentTab();
+			MyTab.then((tab) => {
+				if (tab) {
+					console.log("Tab:" + tab);
 
-		// 		const newElem = {
-		// 			id: data.length,
-		// 			title: tab.title,
-		// 			url: tab.url,
-		// 			favIconUrl: tab.favIconUrl,
-		// 		};
-		// 		const newData = [...data, newElem];
-		// 		setData(newData);
-		// 		localStorage.setItem("myData", JSON.stringify(newData));
-		// 	}
-		// });
+					const newElem = {
+						id: data.length,
+						title: tab.title,
+						url: tab.url,
+						favIconUrl: tab.favIconUrl,
+					};
+					const newData = [...data, newElem];
+					setData(newData);
+					localStorage.setItem("myData", JSON.stringify(newData));
 
-		// For testing
-		const newElem = {
-			id: data.length,
-			title: "000000000000000000000",
-			url: "url",
-			favIconUrl:
-				"https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
-		};
-		const newData = [...data, newElem];
-		setData(newData);
-		localStorage.setItem("myData", JSON.stringify(newData));
+					const views = chrome.extension.getViews({ type: "popup" });
+					if (views.length > 0) {
+						views[0].close();
+					}
+
+
+					// chrome.tabs.remove(tab.id);
+
+					// Open popup of extention on current page
+					// NOTE - thats how can i open new tab like onetab?
+					// chrome.tabs.create({
+					// 	url: chrome.runtime.getURL("index.html"),
+					// 	active: true,
+					// });
+				}
+			});
+		}
 		setClick(true);
 	};
 

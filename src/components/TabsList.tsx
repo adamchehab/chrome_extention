@@ -1,4 +1,19 @@
 const TabsList = ({ data }) => {
+
+	function handleOpenTab(url) {
+		// Opean url
+		chrome.tabs.create({ url: url });
+		// Remove item from local storage
+		// NOTE wow - copilot did this
+		const storedData = localStorage.getItem("myData");
+		if (storedData) {
+			const newData = JSON.parse(storedData).filter(
+				(item) => item.url !== url
+			);
+			localStorage.setItem("myData", JSON.stringify(newData));
+		}
+	}
+
 	return (
 		<div>
 			{data.map((item, index) => (
@@ -7,7 +22,11 @@ const TabsList = ({ data }) => {
 					key={index}
 				>
 					<img className="w-8 h-8 mr-2" src={item.favIconUrl} />
-					<a href={item.url}>{item.title.length > 21 ? `${item.title.slice(0, 21)}...` : item.title}</a>
+					<a href={item.url} onClick={() => handleOpenTab(item.url)}>
+						{item.title.length > 21
+							? `${item.title.slice(0, 21)}...`
+							: item.title}
+					</a>
 				</div>
 			))}
 		</div>
