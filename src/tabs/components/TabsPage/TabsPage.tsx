@@ -1,4 +1,4 @@
-import "./App.css";
+import "./TabsPage.css";
 
 function Popup() {
 	const handleClick = async () => {
@@ -7,7 +7,7 @@ function Popup() {
 
 	return (
 		<>
-			<button onClick={handleClick}>Save tabs</button>
+			<button onClick={handleClick}>HELLO tabs</button>
 		</>
 	);
 }
