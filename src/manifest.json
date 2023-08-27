@@ -1,12 +1,10 @@
 {
 	"manifest_version": 3,
 	"name": "My Extension test",
-	"version": "1.0.1",
+	"version": "1",
 	"action": {
-		"default_popup": "index.html"
+		"default_popup": "./src/popup/popup.html"
 	},
 
-	"permissions": ["activeTab", "tabs"],
-
-	"host_permissions": ["https://*/", "http://*/"]
+	"permissions": ["activeTab", "tabs"]
 }
