@@ -1,10 +1,23 @@
 {
 	"manifest_version": 3,
-	"name": "My Extension test",
-	"version": "1",
+	"name": "Tab Bundler",
+	"description": "Group tabs into bundles.",
+
+	"version": "1.0",
+	"icons": {
+		"16": "images/icon-16.png",
+		"32": "images/icon-32.png",
+		"48": "images/icon-48.png",
+		"128": "images/icon-128.png"
+	},
 	"action": {
+		"default_icon": {
+			"16": "images/icon-16.png",
+			"24": "images/icon-24.png",
+			"32": "images/icon-32.png"
+		},
 		"default_popup": "./src/popup/popup.html"
 	},
 
-	"permissions": ["activeTab", "tabs"]
+	"permissions": ["storage", "tabs", "activeTab", "scripting"]
 }
