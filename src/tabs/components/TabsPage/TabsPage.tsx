@@ -1,13 +1,23 @@
+import { useEffect, useState } from "react";
 import "./TabsPage.css";
 
 function Popup() {
-	const handleClick = async () => {
-		chrome.tabs.create({ url: "./src/tabs/tabs.html" });
-	};
+	const [tabs, setTabs] = useState([]);
+
+	useEffect(() => {
+		// Get tabs from storage
+		chrome.storage.local.get(["myData"], (result) => {
+			setTabs(result.myData);
+		});
+	}, []);
 
 	return (
 		<>
-			<button onClick={handleClick}>HELLO tabs</button>
+			{tabs.map((tab) => (
+				<div key={tab.id}>
+					<a href={tab.url} target="_blank">{tab.title}</a>
+				</div>
+			))}
 		</>
 	);
 }
