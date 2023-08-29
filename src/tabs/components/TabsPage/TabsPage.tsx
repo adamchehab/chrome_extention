@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./TabsPage.css";
 
 function Popup() {
-	const [tabs, setTabs] = useState([
+	const [tabs] = useState([
 		{
 			id: 1,
 			title: "Google",
