@@ -16,6 +16,9 @@ function Popup() {
 		});
 	};
 
+	// FIX - if one tab (tabs page)
+	// FIX - if already is groped page
+
 	return (
 		<>
 			<button onClick={handleClick}>Group tabs</button>
