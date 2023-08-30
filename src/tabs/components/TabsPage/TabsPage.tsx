@@ -34,7 +34,6 @@ function Popup() {
 	// });
 
 	// console.log(tabs);
-	
 
 	// NOTE http://localhost:5173/src/tabs/tabs.html - page
 
@@ -47,10 +46,10 @@ function Popup() {
 		});
 	}, []);
 
-	const handleFaviconError = (e) => {
-		// FIX - still some icons are bad
-		e.target.src = "../../images/default_page.png";
-	};
+	// const handleFaviconError = (e) => {
+	// FIXED - still some icons are bad 
+	// 	e.target.src = "../../images/default_page.png";
+	// };
 
 	const handleRemoveTab = (id) => {
 		console.log("removed tab");
@@ -58,6 +57,7 @@ function Popup() {
 			const newTabs = result.myData.filter((item) => item.id !== id);
 			chrome.storage.local.set({ myData: newTabs }, () => {
 				setTabs(newTabs);
+				console.log(newTabs);
 			});
 		});
 	};
@@ -80,8 +80,8 @@ function Popup() {
 				>
 					<img
 						className="icon"
-						src={item.favIconUrl}
-						onError={handleFaviconError}
+						src={item.favIconUrl ? item.favIconUrl : "../../images/default_page.png"}
+						// onError={handleFaviconError}
 					/>
 					<p>
 						{/* TODO fix length thing? */}
