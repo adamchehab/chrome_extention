@@ -4,7 +4,7 @@ import "./TabsPage.css";
 
 function Popup() {
 	// Testing
-	// const [tabs] = useState([
+	// let tabs = [
 	// 	{
 	// 		id: 1,
 	// 		title: "Google",
@@ -24,7 +24,17 @@ function Popup() {
 	// 		favIconUrl:
 	// 			"https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
 	// 	},
-	// ]);
+	// ];
+
+	// Add new parameter to tabs - domain
+	// tabs = tabs.map((item) => {
+	// 	const url = new URL(item.url);
+	// 	const domain = url.hostname;
+	// 	return { ...item, domain };
+	// });
+
+	// console.log(tabs);
+	
 
 	// NOTE http://localhost:5173/src/tabs/tabs.html - page
 
@@ -43,6 +53,7 @@ function Popup() {
 	};
 
 	const handleRemoveTab = (id) => {
+		console.log("removed tab");
 		chrome.storage.local.get(["myData"], (result) => {
 			const newTabs = result.myData.filter((item) => item.id !== id);
 			chrome.storage.local.set({ myData: newTabs }, () => {
@@ -54,6 +65,8 @@ function Popup() {
 	const handleCardClick = (item) => {
 		// TODO mabye make this an option
 		chrome.tabs.create({ url: item.url, active: false });
+		console.log("tab opened");
+
 		handleRemoveTab(item.id);
 	};
 
