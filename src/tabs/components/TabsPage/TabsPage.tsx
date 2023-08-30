@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { VscChromeClose } from "react-icons/vsc";
-import "./TabsPage.css";
+import TabCard from "../TabCard/TabCard.tsx";
 
 function Popup() {
 	// Testing
@@ -39,63 +38,57 @@ function Popup() {
 
 	const [tabs, setTabs] = useState([]);
 
+	let domains = [...new Set(tabs.map((tab) => tab.domain))];
+
+	let domainCounts = tabs.reduce((counts, tab) => {
+		counts[tab.domain] = (counts[tab.domain] || 0) + 1;
+		return counts;
+	}, {});
+
+	tabs.forEach((tab) => {
+		if (domainCounts[tab.domain] === 1) {
+			tab.domain = "other";
+		}
+	});
+
+	domains = [...new Set(tabs.map((tab) => tab.domain))];
+
+	domainCounts = tabs.reduce((counts, tab) => {
+		counts[tab.domain] = (counts[tab.domain] || 0) + 1;
+		return counts;
+	}, {});
+
+	console.log(tabs);
+	
+
+	// Get tabs from storage
 	useEffect(() => {
-		// Get tabs from storage
 		chrome.storage.local.get(["myData"], (result) => {
 			setTabs(result.myData);
 		});
 	}, []);
 
-	// const handleFaviconError = (e) => {
-	// FIXED - still some icons are bad 
-	// 	e.target.src = "../../images/default_page.png";
-	// };
-
-	const handleRemoveTab = (id) => {
-		console.log("removed tab");
-		chrome.storage.local.get(["myData"], (result) => {
-			const newTabs = result.myData.filter((item) => item.id !== id);
-			chrome.storage.local.set({ myData: newTabs }, () => {
-				setTabs(newTabs);
-				console.log(newTabs);
-			});
-		});
-	};
-
-	const handleCardClick = (item) => {
-		// TODO mabye make this an option
-		chrome.tabs.create({ url: item.url, active: false });
-		console.log("tab opened");
-
-		handleRemoveTab(item.id);
-	};
+	// FIXED - still some icons are bad
 
 	return (
 		<>
-			{tabs.map((item, index) => (
-				<div
-					className="tab_card"
-					key={index}
-					onClick={() => handleCardClick(item)}
-				>
-					<img
-						className="icon"
-						src={item.favIconUrl ? item.favIconUrl : "../../images/default_page.png"}
-						// onError={handleFaviconError}
-					/>
-					<p>
-						{/* TODO fix length thing? */}
-						{item.title.length > 21
-							? `${item.title.slice(0, 21)}...`
-							: item.title}
-					</p>
-					<VscChromeClose
-						className="close"
-						onClick={(e) => {
-							e.stopPropagation();
-							handleRemoveTab(item.id);
-						}}
-					/>
+			{/* {tabs.map((tab, index) => (
+				<TabCard tab={tab} index={index} setTabs={setTabs} />
+			))} */}
+			{domains.map((domain) => (
+				<div key={domain}>
+					<h2>{domain + domainCounts[domain]}</h2>
+					<ul>
+						{tabs
+							.filter((tab) => tab.domain === domain)
+							.map((tab, index) => (
+								<TabCard
+									tab={tab}
+									index={index}
+									setTabs={setTabs}
+								/>
+							))}
+					</ul>
 				</div>
 			))}
 		</>
