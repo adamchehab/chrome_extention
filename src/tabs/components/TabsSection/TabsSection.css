@@ -1,15 +1,23 @@
 .tabs_section {
-	@apply rounded-md my-1 pb-[2px] border-[0.5px] border-[#1f1f1f] bg-[#c9c9c936];
+	@apply rounded-md my-1 pb-[2px] border-[0.5px] border-[#0f0f0f93] bg-[#1313134f] select-none cursor-default;
 }
 
 .tabs_section_header {
-	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm cursor-pointer rounded-md;
+	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm rounded-md;
 }
 
 .tabs_section_header_text {
-	@apply ml-[6px]
+	@apply ml-[6px];
 }
 
-.icon {
+.tabs_section_header .close {
+	@apply block hover:text-red-600 cursor-pointer;
+} 
+
+.tabs_section_header > :last-child {
+	@apply ml-auto mr-[6px];
+}
+
+.tabs_section_header_icon {
 	@apply w-4 h-4 ml-[6px];
 }

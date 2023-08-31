@@ -40,7 +40,13 @@ function TestComponent() {
 			// Add domain
 			tabs = tabs.map((tab) => {
 				const url = new URL(tab.url);
-				const domain = url.hostname.replace(".com", "");
+				let domain = url.hostname.replace(".com", "");
+				if (domain.startsWith("www.")) {
+					domain = domain.slice(4);
+				}
+				domain = domain.split(".")[0];
+				// Make first latter capital
+				domain = domain.charAt(0).toUpperCase() + domain.slice(1);
 				return { ...tab, domain };
 			});
 
