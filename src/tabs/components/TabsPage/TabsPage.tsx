@@ -1,38 +1,74 @@
 import { useEffect, useState } from "react";
 import TabCard from "../TabCard/TabCard.tsx";
+import TabsSection from "../TabsSection/TabsSection.tsx";
 
 function Popup() {
 	// Testing
-	// let tabs = [
+	// const tabs = [
 	// 	{
 	// 		id: 1,
-	// 		title: "Google",
+	// 		title: "Test1 11111111111111111111111111111111111111111111111",
 	// 		url: "https://www.google.com",
+	// 		domain: "chrome.google",
 	// 		favIconUrl: "https://www.google.com/favicon.ico",
 	// 	},
 	// 	{
 	// 		id: 2,
-	// 		title: "GitHub",
-	// 		url: "https://github.com",
-	// 		favIconUrl: "https://github.com/favicon.ico",
+	// 		title: "Test2",
+	// 		url: "https://www.google.com",
+	// 		domain: "chrome.google",
+	// 		favIconUrl: "https://www.google.com/favicon.ico",
 	// 	},
 	// 	{
 	// 		id: 3,
-	// 		title: "Stack Overflow",
-	// 		url: "https://stackoverflow.com",
-	// 		favIconUrl:
-	// 			"https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
+	// 		title: "Test3",
+	// 		url: "https://www.google.com",
+	// 		domain: "chrome.google",
+	// 		favIconUrl: "https://www.google.com/favicon.ico",
+	// 	},
+	// 	{
+	// 		id: 4,
+	// 		title: "Test4",
+	// 		url: "https://www.facebook.com",
+	// 		domain: "facebook",
+	// 		favIconUrl: "https://www.facebook.com/favicon.ico",
+	// 	},
+	// 	{
+	// 		id: 5,
+	// 		title: "Test5",
+	// 		url: "https://www.twitter.com",
+	// 		domain: "facebook",
+	// 		favIconUrl: "https://www.facebook.com/favicon.ico",
+	// 	},
+	// 	{
+	// 		id: 6,
+	// 		title: "Test6",
+	// 		url: "https://www.github.com",
+	// 		domain: "facebook",
+	// 		favIconUrl: "https://www.facebook.com/favicon.ico",
+	// 	},
+	// 	{
+	// 		id: 7,
+	// 		title: "Test7",
+	// 		url: "https://www.amazon.com",
+	// 		domain: "amazon",
+	// 		favIconUrl: "https://www.amazon.com/favicon.ico",
+	// 	},
+	// 	{
+	// 		id: 8,
+	// 		title: "Test8",
+	// 		url: "https://www.netflix.com",
+	// 		domain: "amazon",
+	// 		favIconUrl: "https://www.amazon.com/favicon.ico",
+	// 	},
+	// 	{
+	// 		id: 9,
+	// 		title: "Test9",
+	// 		url: "https://www.microsoft.com",
+	// 		domain: "amazon",
+	// 		favIconUrl: "https://www.amazon.com/favicon.ico",
 	// 	},
 	// ];
-
-	// Add new parameter to tabs - domain
-	// tabs = tabs.map((item) => {
-	// 	const url = new URL(item.url);
-	// 	const domain = url.hostname;
-	// 	return { ...item, domain };
-	// });
-
-	// console.log(tabs);
 
 	// NOTE http://localhost:5173/src/tabs/tabs.html - page
 
@@ -58,8 +94,10 @@ function Popup() {
 		return counts;
 	}, {});
 
-	console.log(tabs);
-	
+	// Sort domains by counts
+	domains = Object.keys(domainCounts).sort((a, b) => {
+		return domainCounts[b] - domainCounts[a];
+	});
 
 	// Get tabs from storage
 	useEffect(() => {
@@ -70,26 +108,39 @@ function Popup() {
 
 	// FIXED - still some icons are bad
 
+	const getIconSection = (domain, tabs) => {
+		if (domain === "other") {
+			return "../../images/default_page.png";
+		}
+		const tab = tabs.find((tab) => tab.domain === domain);
+		return tab.favIconUrl;
+	};
+
+	const [tabIconsEnabled, setTabIconsEnabled] = useState(true);
+
 	return (
 		<>
-			{/* {tabs.map((tab, index) => (
-				<TabCard tab={tab} index={index} setTabs={setTabs} />
-			))} */}
+			<button onClick={() => setTabIconsEnabled(!tabIconsEnabled)}>
+				Tab icons
+			</button>
 			{domains.map((domain) => (
-				<div key={domain}>
-					<h2>{domain + domainCounts[domain]}</h2>
-					<ul>
-						{tabs
-							.filter((tab) => tab.domain === domain)
-							.map((tab, index) => (
-								<TabCard
-									tab={tab}
-									index={index}
-									setTabs={setTabs}
-								/>
-							))}
-					</ul>
-				</div>
+				<TabsSection
+					domain={domain}
+					icon={getIconSection(domain, tabs)}
+					tabs={tabs}
+					setTabs={setTabs}
+				>
+					{tabs
+						.filter((tab) => tab.domain === domain)
+						.map((tab, index) => (
+							<TabCard
+								tab={tab}
+								index={index}
+								setTabs={setTabs}
+								tabIconsEnabled={tabIconsEnabled}
+							/>
+						))}
+				</TabsSection>
 			))}
 		</>
 	);
