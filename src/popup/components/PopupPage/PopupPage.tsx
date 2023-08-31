@@ -102,8 +102,8 @@ function TestComponent() {
 
 	return (
 		<>
-			<button onClick={handleClick} disabled={!buttonEnabled}>Save tabs</button>
-			<button onClick={handleClearData}>Clear Data</button>
+			<button onClick={handleClick} disabled={!buttonEnabled} className="mr-2">Save tabs</button>
+			{/* <button onClick={handleClearData}>Clear Data</button> */}
 		</>
 	);
 }

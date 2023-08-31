@@ -3,7 +3,7 @@
 }
 
 .tabs_section_header {
-	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm rounded-md;
+	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm rounded-md cursor-pointer;
 }
 
 .tabs_section_header_text {

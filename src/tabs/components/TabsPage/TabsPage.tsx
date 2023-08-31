@@ -94,6 +94,11 @@ function Popup() {
 		return counts;
 	}, {});
 
+	// Sort domains by counts
+	domains = Object.keys(domainCounts).sort((a, b) => {
+		return domainCounts[b] - domainCounts[a];
+	});
+
 	// Get tabs from storage
 	useEffect(() => {
 		chrome.storage.local.get(["myData"], (result) => {
