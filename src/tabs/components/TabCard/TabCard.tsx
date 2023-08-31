@@ -1,6 +1,8 @@
 import { VscChromeClose } from "react-icons/vsc";
 import "./TabCard.css";
 
+const tabIconsEnabled = true;
+
 const TabCard = ({ tab, index, setTabs }) => {
 	const handleRemoveTab = (id) => {
 		console.log("removed tab");
@@ -27,16 +29,15 @@ const TabCard = ({ tab, index, setTabs }) => {
 			key={index}
 			onClick={() => handleCardClick(tab)}
 		>
-			<img
+			{ tabIconsEnabled && <img
 				className="icon"
 				src={
 					tab.favIconUrl
 						? tab.favIconUrl
 						: "../../images/default_page.png"
 				}
-				// onError={handleFaviconError}
-			/>
-			<p>
+			/>}
+			<p className="tab_card_text">
 				{/* TODO fix length thing? */}
 				{tab.title.length > 31
 					? `${tab.title.slice(0, 31)}...`

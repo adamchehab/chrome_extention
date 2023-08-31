@@ -4,6 +4,10 @@
 	@apply flex border-[0.5px] border-[#1f1f1f] rounded-md bg-[#303030] m-[2px] w-[265px] h-[28px] overflow-hidden items-center text-xs hover:bg-[#3b3b3b] cursor-pointer;
 }
 
+.tab_card_text {
+  @apply ml-[6px]
+}
+
 .tab_card .close {
 	@apply hidden text-[#6b6b6b];
 }
@@ -17,5 +21,5 @@
 }
 
 .icon {
-	@apply w-4 h-4 mx-[6px];
+	@apply w-4 h-4 ml-[6px];
 }

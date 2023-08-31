@@ -96,7 +96,7 @@ function Popup() {
 
 	console.log(tabs);
 
-	// // Get tabs from storage
+	// Get tabs from storage
 	// useEffect(() => {
 	// 	chrome.storage.local.get(["myData"], (result) => {
 	// 		setTabs(result.myData);
@@ -116,7 +116,6 @@ function Popup() {
 	return (
 		<>
 			{domains.map((domain) => (
-				// <div key={domain}>
 				<TabsSection domain={domain} icon={getIconSection(domain, tabs)}>
 					{tabs
 						.filter((tab) => tab.domain === domain)

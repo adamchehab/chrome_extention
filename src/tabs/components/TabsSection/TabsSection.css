@@ -5,3 +5,11 @@
 .tabs_section_header {
 	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm cursor-pointer rounded-md;
 }
+
+.tabs_section_header_text {
+	@apply ml-[6px]
+}
+
+.icon {
+	@apply w-4 h-4 ml-[6px];
+}
