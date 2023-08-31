@@ -1,0 +1,7 @@
+.tabs_section {
+	@apply rounded-md my-1 pb-[2px] border-[0.5px] border-[#1f1f1f] bg-[#c9c9c936];
+}
+
+.tabs_section_header {
+	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm cursor-pointer rounded-md;
+}

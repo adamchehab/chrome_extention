@@ -38,8 +38,8 @@ const TabCard = ({ tab, index, setTabs }) => {
 			/>
 			<p>
 				{/* TODO fix length thing? */}
-				{tab.title.length > 21
-					? `${tab.title.slice(0, 21)}...`
+				{tab.title.length > 31
+					? `${tab.title.slice(0, 31)}...`
 					: tab.title}
 			</p>
 			<VscChromeClose

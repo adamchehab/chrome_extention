@@ -40,7 +40,7 @@ function TestComponent() {
 			// Add domain
 			tabs = tabs.map((tab) => {
 				const url = new URL(tab.url);
-				const domain = url.hostname;
+				const domain = url.hostname.replace(".com", "");
 				return { ...tab, domain };
 			});
 
