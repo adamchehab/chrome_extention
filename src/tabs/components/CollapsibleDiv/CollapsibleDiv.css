@@ -1,9 +1,24 @@
-.test123 {
-  /* Your styles for the div here */
-  transition: height 2s ease;
+.collapsible {
+  transition: max-height 0.3s ease-in;
+  overflow: hidden;
 }
 
-.collapsed {
-  height: 0;
-  overflow: hidden;
+.collapsible.collapsed .collapsible-content {
+  max-height: 0;
+  opacity: 0;
+}
+
+.collapsible-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.collapsible-icon {
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+}
+
+.collapsible.collapsed .collapsible-icon {
+  transform: rotate(45deg);
 }

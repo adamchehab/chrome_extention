@@ -18,12 +18,12 @@ function TestComponent() {
 		});
 	}, []);
 
-	// const handleClearData = () => {
-	// 	chrome.storage.local.set({ myData: [] });
-	// 	chrome.storage.local.get(["myData"], (result) => {
-	// 		console.log(result.myData);
-	// 	});
-	// };
+	const handleClearData = () => {
+		chrome.storage.local.set({ myData: [] });
+		chrome.storage.local.get(["myData"], (result) => {
+			console.log(result.myData);
+		});
+	};
 
 	const handleClick = async () => {
 		chrome.storage.local.get(["myData"], async (result) => {
@@ -98,12 +98,14 @@ function TestComponent() {
 
 	// FIXED - if current tab is extentiuon page - cant press button
 
+	// FIX when first installed MyData is not initisised correctly
+
 	// NOTE dont add existing tabs ?
 
 	return (
 		<>
 			<button onClick={handleClick} disabled={!buttonEnabled} className="mr-2">Save tabs</button>
-			{/* <button onClick={handleClearData}>Clear Data</button> */}
+			<button onClick={handleClearData}>Clear Data</button>
 		</>
 	);
 }

@@ -5,15 +5,18 @@ import { MdEdit, MdHighlightOff } from "react-icons/md";
 
 // TODO add edit name
 // TODO add close
-// TODO add fold
+// TODO add fold animation
 // TODO add naming by date and time?
 
-const SessionSection = ({ children }) => {
-	const [isVisible, setIsVisible] = useState(false);
+const SessionSection = ({ children, session_name }) => {
+	const [isVisible, setIsVisible] = useState(true);
 
 	const toggleVisibility = () => {
 		setIsVisible(!isVisible);
 	};
+	
+	// TODO add remove 
+	// TODO add open all session items
 
 	return (
 		<>
@@ -26,7 +29,7 @@ const SessionSection = ({ children }) => {
 							}`}
 						/>
 					</p>
-					<p className="session_section_header_text">Session name</p>
+					<p className="session_section_header_text">{session_name}</p>
 					<div className="flex">
 						<MdEdit className="session_section_header_edit" />
 						<MdHighlightOff className="session_section_header_close" />

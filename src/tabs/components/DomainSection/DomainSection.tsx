@@ -34,20 +34,27 @@ const DomainSection = ({ domain, icon, tabs, setTabs, children }) => {
 		// DONE remove .com from domain?
 		// DONE do i add key here
 		// DONE add remove section handler and logic
-		// DONE add open whole section 
-		<div className="tabs_section" key={domain}>
-			<div className="tabs_section_header" onClick={handleSectionClick}>
-				<img className="tabs_section_header_icon" src={icon} />
-				<p className="tabs_section_header_text">{domain}</p>
-				<VscChromeClose
-					className="close"
-					onClick={(e) => {
-						e.stopPropagation();
-						handleRemoveSection(domain);
-					}}
-				/>
-			</div>
-			{children}
+		// DONE add open whole section
+		<div>
+			{children.length > 0 && (
+				<div className="tabs_section" key={domain}>
+					<div
+						className="tabs_section_header"
+						onClick={handleSectionClick}
+					>
+						<img className="tabs_section_header_icon" src={icon} />
+						<p className="tabs_section_header_text">{domain}</p>
+						<VscChromeClose
+							className="close"
+							onClick={(e) => {
+								e.stopPropagation();
+								handleRemoveSection(domain);
+							}}
+						/>
+					</div>
+					{children}
+				</div>
+			)}
 		</div>
 	);
 };
