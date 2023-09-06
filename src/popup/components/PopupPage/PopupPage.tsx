@@ -18,12 +18,12 @@ function TestComponent() {
 		});
 	}, []);
 
-	const handleClearData = () => {
-		chrome.storage.local.set({ myData: [] });
-		chrome.storage.local.get(["myData"], (result) => {
-			console.log(result.myData);
-		});
-	};
+	// const handleClearData = () => {
+	// 	chrome.storage.local.set({ myData: [] });
+	// 	chrome.storage.local.get(["myData"], (result) => {
+	// 		console.log(result.myData);
+	// 	});
+	// };
 
 	const handleClick = async () => {
 		chrome.storage.local.get(["myData"], async (result) => {

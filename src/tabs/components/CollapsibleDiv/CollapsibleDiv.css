@@ -1,0 +1,9 @@
+.test123 {
+  /* Your styles for the div here */
+  transition: height 2s ease;
+}
+
+.collapsed {
+  height: 0;
+  overflow: hidden;
+}

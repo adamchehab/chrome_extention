@@ -1,7 +1,7 @@
-import "./TabsSection.css";
+import "./DomainSection.css";
 import { VscChromeClose } from "react-icons/vsc";
 
-const TabsSection = ({ domain, icon, tabs, setTabs, children }) => {
+const DomainSection = ({ domain, icon, tabs, setTabs, children }) => {
 	const handleRemoveSection = (domain) => {
 		console.log(domain);
 
@@ -52,4 +52,4 @@ const TabsSection = ({ domain, icon, tabs, setTabs, children }) => {
 	);
 };
 
-export default TabsSection;
+export default DomainSection;

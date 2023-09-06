@@ -1,0 +1,31 @@
+.session_section {
+	@apply rounded-md my-1 pb-[3px] border-[0.5px] border-[#0f0f0f93] bg-[#1313134f] select-none cursor-default px-[6px] w-[285px];
+}
+
+.session_section_header {
+	@apply flex w-[269px] h-[24px] overflow-hidden items-center text-sm rounded-md mt-[2px];
+}
+
+.session_section_header_text {
+	@apply ml-[3px];
+}
+
+.session_section_header_fold {
+	@apply mr-[2px] cursor-pointer;
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.rotated {
+	transform: scaleY(-1);
+}
+
+.session_section_header_edit {
+	@apply mr-[2px];
+}
+
+/* .session_section_header_close {
+} */
+
+.session_section_header > :last-child {
+	@apply ml-auto;
+}
