@@ -3,7 +3,7 @@ import { VscChromeClose } from "react-icons/vsc";
 
 const DomainSection = ({ domain, icon, tabs, setTabs, children }) => {
 	const handleRemoveSection = (domain) => {
-		console.log(domain);
+		// console.log(domain);
 
 		// FIXED left here - bug other domain doesnt close
 		// chrome.storage.local.get(["myData"], (result) => {

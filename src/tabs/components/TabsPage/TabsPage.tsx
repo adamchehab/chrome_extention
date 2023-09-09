@@ -4,6 +4,10 @@ import DomainSection from "../DomainSection/DomainSection.tsx";
 import SessionSection from "../SessionSection/SessionSection.tsx";
 import CollapsibleDiv from "../CollapsibleDiv/CollapsibleDiv.tsx";
 
+import data from "../../../myData.json";
+
+import * as FileSaver from "file-saver";
+
 function Popup() {
 	// Testing
 	// const tabs = [
@@ -76,39 +80,40 @@ function Popup() {
 
 	const [tabs, setTabs] = useState([]);
 
-	let domains = [...new Set(tabs.map((tab) => tab.domain))];
+	const domains = [...new Set(tabs.map((tab) => tab.domain))];
 
 	const sessions = [...new Set(tabs.map((tab) => tab.sessionId))];
 
-	let domainCounts = tabs.reduce((counts, tab) => {
-		counts[tab.domain] = (counts[tab.domain] || 0) + 1;
-		return counts;
-	}, {});
+	// let domainCounts = tabs.reduce((counts, tab) => {
+	// 	counts[tab.domain] = (counts[tab.domain] || 0) + 1;
+	// 	return counts;
+	// }, {});
 
-	tabs.forEach((tab) => {
-		if (domainCounts[tab.domain] === 1) {
-			tab.domain = "other";
-		}
-	});
+	// tabs.forEach((tab) => {
+	// 	if (domainCounts[tab.domain] === 1) {
+	// 		tab.domain = "other";
+	// 	}
+	// });
 
-	domains = [...new Set(tabs.map((tab) => tab.domain))];
+	// domains = [...new Set(tabs.map((tab) => tab.domain))];
 
+	// domainCounts = tabs.reduce((counts, tab) => {
+	// 	counts[tab.domain] = (counts[tab.domain] || 0) + 1;
+	// 	return counts;
+	// }, {});
 
-	domainCounts = tabs.reduce((counts, tab) => {
-		counts[tab.domain] = (counts[tab.domain] || 0) + 1;
-		return counts;
-	}, {});
+	// // Sort domains by counts
+	// domains = Object.keys(domainCounts).sort((a, b) => {
+	// 	return domainCounts[b] - domainCounts[a];
+	// });
 
-	// Sort domains by counts
-	domains = Object.keys(domainCounts).sort((a, b) => {
-		return domainCounts[b] - domainCounts[a];
-	});
-
+	// NOTE this if for extension
 	// Get tabs from storage
 	useEffect(() => {
-		chrome.storage.local.get(["myData"], (result) => {
-			setTabs(result.myData);
-		});
+		// chrome.storage.local.get(["myData"], (result) => {
+		// 	setTabs(result.myData);
+		// 	console.log(result.myData);
+		// });
 	}, []);
 
 	// FIXED - still some icons are bad
@@ -122,15 +127,42 @@ function Popup() {
 		return tab.favIconUrl;
 	};
 
+	const getSessionDate = (sessionId) => {
+		const tab = tabs.find((tab) => tab.sessionId === sessionId);
+		return tab.dateString;
+	};
+
+	const saveTabsToFile = () => {
+		chrome.storage.local.get(["myData"], (result) => {
+			const data = new Blob([JSON.stringify(result.myData)], {
+				type: "application/json",
+			});
+			FileSaver.saveAs(data, "myData.json");
+		});
+	};
+
+	const resetData = () => {
+		setTabs(data);
+	};
+
 	const [tabIconsEnabled, setTabIconsEnabled] = useState(true);
 
 	return (
 		<>
-			<button onClick={() => setTabIconsEnabled(!tabIconsEnabled)}>
-				Tab icons
-			</button>
+			<div className="flex">
+				<button
+					className="mr-2"
+					onClick={() => setTabIconsEnabled(!tabIconsEnabled)}
+				>
+					Tab icons
+				</button>
+				<button className="mr-2" onClick={() => saveTabsToFile()}>
+					Save tabs to file
+				</button>
+				<button onClick={() => resetData()}>Reset data</button>
+			</div>
 			{sessions.map((session) => (
-				<SessionSection session_name={session}>
+				<SessionSection session_name={getSessionDate(session)}>
 					{domains.map((domain) => (
 						<DomainSection
 							domain={domain}
@@ -139,11 +171,16 @@ function Popup() {
 							setTabs={setTabs}
 						>
 							{tabs
-								.filter((tab) => tab.domain === domain && tab.sessionId === session)
+								.filter(
+									(tab) =>
+										tab.domain === domain &&
+										tab.sessionId === session
+								)
 								.map((tab, index) => (
 									<TabCard
 										tab={tab}
 										index={index}
+										tabs={tabs}
 										setTabs={setTabs}
 										tabIconsEnabled={tabIconsEnabled}
 									/>

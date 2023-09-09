@@ -33,6 +33,11 @@ function TestComponent() {
 			// Filter extention page
 			tabs = tabs.filter((tab) => !tab.url.includes(EXT_URL));
 
+			// Add date to tabs
+			const date = new Date();
+			const dateString = date.toLocaleString();
+			tabs = tabs.map((tab) => ({ ...tab, dateString }));
+
 			// Add session id
 			const sessionId = uuidv4();
 			tabs = tabs.map((tab) => ({ ...tab, sessionId }));
@@ -47,7 +52,7 @@ function TestComponent() {
 				domain = domain.split(".")[0];
 				// Make first latter capital
 				domain = domain.charAt(0).toUpperCase() + domain.slice(1);
-				return { ...tab, domain };
+				return { ...tab, domain};
 			});
 
 			// Add tabs to myData

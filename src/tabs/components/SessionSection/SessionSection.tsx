@@ -14,8 +14,19 @@ const SessionSection = ({ children, session_name }) => {
 	const toggleVisibility = () => {
 		setIsVisible(!isVisible);
 	};
-	
-	// TODO add remove 
+
+	const date = new Date(session_name);
+	// format date
+
+	const dateString = new Intl.DateTimeFormat("ru-RU", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+	}).format(date);
+
+	// TODO add remove
 	// TODO add open all session items
 
 	return (
@@ -29,7 +40,7 @@ const SessionSection = ({ children, session_name }) => {
 							}`}
 						/>
 					</p>
-					<p className="session_section_header_text">{session_name}</p>
+					<p className="session_section_header_text">{dateString}</p>
 					<div className="flex">
 						<MdEdit className="session_section_header_edit" />
 						<MdHighlightOff className="session_section_header_close" />

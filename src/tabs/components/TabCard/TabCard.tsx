@@ -1,16 +1,19 @@
 import { VscChromeClose } from "react-icons/vsc";
 import "./TabCard.css";
 
-const TabCard = ({ tab, index, setTabs, tabIconsEnabled }) => {
+const TabCard = ({ tab, index, tabs, setTabs, tabIconsEnabled }) => {
 	const handleRemoveTab = (id) => {
-		console.log("removed tab");
-		chrome.storage.local.get(["myData"], (result) => {
-			const newTabs = result.myData.filter((item) => item.id !== id);
-			chrome.storage.local.set({ myData: newTabs }, () => {
-				setTabs(newTabs);
-				console.log(newTabs);
-			});
-		});
+		// console.log("removed tab");
+		// chrome.storage.local.get(["myData"], (result) => {
+		// 	const newTabs = result.myData.filter((item) => item.id !== id);
+		// 	chrome.storage.local.set({ myData: newTabs }, () => {
+		// 		setTabs(newTabs);
+		// 		console.log(newTabs);
+		// 	});
+		// });
+		const newTabs = tabs.filter((item) => item.id !== id);
+		setTabs(newTabs);
+		chrome.storage.local.set({ myData: newTabs });
 	};
 
 	const handleCardClick = (item) => {
