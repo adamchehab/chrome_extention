@@ -1,7 +1,7 @@
 import { VscChromeClose } from "react-icons/vsc";
 import "./TabCard.css";
 
-const TabCard = ({ tab, index, tabs, setTabs, tabIconsEnabled }) => {
+const TabCard = ({ tab, tabs, setTabs, tabIconsEnabled }) => {
 	const handleRemoveTab = (id) => {
 		// console.log("removed tab");
 		// chrome.storage.local.get(["myData"], (result) => {
@@ -27,7 +27,7 @@ const TabCard = ({ tab, index, tabs, setTabs, tabIconsEnabled }) => {
 	return (
 		<div
 			className="tab_card"
-			key={index}
+			// key={tab.id}
 			onClick={() => handleCardClick(tab)}
 		>
 			{ tabIconsEnabled && <img

@@ -80,7 +80,9 @@ function Popup() {
 
 	const [tabs, setTabs] = useState([]);
 
-	const domains = [...new Set(tabs.map((tab) => tab.domain))];
+	const domains = [...new Set(tabs.map((tab) => tab.domain))].sort();
+
+	// domains = new Set([...domains].sort());
 
 	const sessions = [...new Set(tabs.map((tab) => tab.sessionId))];
 
@@ -112,10 +114,12 @@ function Popup() {
 	useEffect(() => {
 		// chrome.storage.local.get(["myData"], (result) => {
 		// 	setTabs(result.myData);
-		// 	console.log(result.myData);
 		// });
 	}, []);
 
+	// FIX - почему в конце все времяы новый domain - can fix by sorting domain each time
+	// QUESTION mabye make it so all stuff doesnt rerender? to optimise? how do i even measure how efficient my app is?
+	// NOTE use memo? or other hooks?
 	// FIXED - still some icons are bad
 	// TODO add search by tabs
 
@@ -143,6 +147,7 @@ function Popup() {
 
 	const resetData = () => {
 		setTabs(data);
+		// console.log(tabs);
 	};
 
 	const [tabIconsEnabled, setTabIconsEnabled] = useState(true);
@@ -159,12 +164,19 @@ function Popup() {
 				<button className="mr-2" onClick={() => saveTabsToFile()}>
 					Save tabs to file
 				</button>
-				<button onClick={() => resetData()}>Reset data</button>
+				<button className="mr-2" onClick={() => resetData()}>
+					Reset data
+				</button>
+				<button onClick={() => console.log(tabs)}>log</button>
 			</div>
 			{sessions.map((session) => (
-				<SessionSection session_name={getSessionDate(session)}>
+				<SessionSection
+					key={session}
+					session_name={getSessionDate(session)}
+				>
 					{domains.map((domain) => (
 						<DomainSection
+							key={domain}
 							domain={domain}
 							icon={getIconSection(domain, tabs)}
 							tabs={tabs}
@@ -176,10 +188,10 @@ function Popup() {
 										tab.domain === domain &&
 										tab.sessionId === session
 								)
-								.map((tab, index) => (
+								.map((tab) => (
 									<TabCard
 										tab={tab}
-										index={index}
+										key={tab.id}
 										tabs={tabs}
 										setTabs={setTabs}
 										tabIconsEnabled={tabIconsEnabled}

@@ -36,8 +36,9 @@ const DomainSection = ({ domain, icon, tabs, setTabs, children }) => {
 		// DONE add remove section handler and logic
 		// DONE add open whole section
 		<div>
+			{/* QUESTION Do i make this logic outside? */}
 			{children.length > 0 && (
-				<div className="tabs_section" key={domain}>
+				<div className="tabs_section">
 					<div
 						className="tabs_section_header"
 						onClick={handleSectionClick}
