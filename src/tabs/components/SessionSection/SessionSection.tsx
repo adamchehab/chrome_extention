@@ -4,18 +4,20 @@ import { IoChevronDown } from "react-icons/io5";
 import { MdEdit, MdHighlightOff } from "react-icons/md";
 
 // TODO add edit name
-// TODO add close
+// DONE add close
 // TODO add fold animation
-// TODO add naming by date and time?
+// DONE add naming by date and time?
 
-const SessionSection = ({ children, session_name }) => {
+const SessionSection = ({ children, date, session, tabs, setTabs }) => {
 	const [isVisible, setIsVisible] = useState(true);
+	const [sessionName, setSessionName] = useState("");
+
 
 	const toggleVisibility = () => {
 		setIsVisible(!isVisible);
 	};
 
-	const date = new Date(session_name);
+	const datetest = new Date(date);
 	// format date
 
 	const dateString = new Intl.DateTimeFormat("ru-RU", {
@@ -24,9 +26,19 @@ const SessionSection = ({ children, session_name }) => {
 		day: "2-digit",
 		hour: "2-digit",
 		minute: "2-digit",
-	}).format(date);
+	}).format(datetest);
 
-	// TODO add remove
+	const handleEditSectionName = (session) => {};
+
+	const handleRemoveSection = (session) => {
+		console.log("click remove section");
+
+		const newTabs = tabs.filter((item) => item.sessionId !== session);
+		console.log(session);
+
+		setTabs(newTabs);
+		chrome.storage.local.set({ myData: newTabs });
+	};
 	// TODO add open all session items
 
 	return (
@@ -43,7 +55,10 @@ const SessionSection = ({ children, session_name }) => {
 					<p className="session_section_header_text">{dateString}</p>
 					<div className="flex">
 						<MdEdit className="session_section_header_edit" />
-						<MdHighlightOff className="session_section_header_close" />
+						<MdHighlightOff
+							className="session_section_header_close"
+							onClick={() => handleRemoveSection(session)}
+						/>
 					</div>
 				</div>
 				{isVisible && <div>{children}</div>}

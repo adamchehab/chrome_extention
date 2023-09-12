@@ -172,7 +172,10 @@ function Popup() {
 			{sessions.map((session) => (
 				<SessionSection
 					key={session}
-					session_name={getSessionDate(session)}
+					session={session}
+					date={getSessionDate(session)}
+					tabs={tabs}
+					setTabs={setTabs}
 				>
 					{domains.map((domain) => (
 						<DomainSection
